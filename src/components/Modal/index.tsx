@@ -57,43 +57,45 @@ const Content = styled.div`
 `
 
 interface ModalProps {
+  /**
+   *  Where you can add the modal elements
+   */
   children?: React.ReactNode
+  /**
+   *  When it's true it will open the modal
+   */
   open?: boolean
+  /**
+   * Callback fired when the Modal is requested to be closed by a click on the overlay or when user press esc key
+   */
   onClose?: () => void
+  /**
+   * When it's true it will prevent close the modal when you click on the backdrop of the close button
+   */
   locked?: boolean
+  /**
+   * You can specify the parent of the modal where you can render the portal by default it will create a div
+   */
   parent?: HTMLElement
+  /**
+   * You can add class the the parent dev
+   */
   parentClass?: string
 }
 
 const Modal: React.FC<ModalProps> = ({
-  /**
-   *  Where you can add the modal elements
-   */
   children,
-  /**
-   *  When it's true it will open the modal
-   */
   open,
-  /**
-   * Callback fired when the Modal is requested to be closed by a click on the overlay or when user press esc key
-   */
   onClose,
-  /**
-   * When it's true it will prevent close the modal when you click on the backdrop of the close button
-   */
   locked,
-  /**
-   * You can specify the parent of the modal where you can render the portal by default it will create a div
-   */
   parent,
-  /**
-   * You can add class the the parent dev
-   */
   parentClass,
 }: ModalProps) => {
-  const [active, setActive] = useState(false)
+  const [active, setActive] = useState<boolean | undefined>(false)
 
-  const backdrop = useRef(null)
+  const backdrop = useRef<HTMLDivElement | null>(null)
+
+  const root = document.querySelector('#root')
 
   useEffect(() => {
     const {current} = backdrop
@@ -101,14 +103,14 @@ const Modal: React.FC<ModalProps> = ({
     const transitionEnd = () => setActive(open)
 
     const keyHandler = (event: {which: number}) =>
-      !locked && [27].indexOf(event.which) >= 0 && onClose()
+      !locked && [27].indexOf(event.which) >= 0 && onClose ? onClose() : undefined
 
-    const clickHandler = (e: React.MouseEvent<HTMLDivElement>) =>
-      !locked && e.target === current && onClose()
+    const clickHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) =>
+      !locked && e.target === current && onClose ? onClose() : undefined
 
     if (current) {
-      current.addEventListener('transitionend', transitionEnd)
-      current.addEventListener('click', clickHandler)
+      current && current.addEventListener('transitionend', transitionEnd)
+      current.addEventListener('click', clickHandler as any)
       window.addEventListener('keyup', keyHandler)
     }
 
@@ -116,17 +118,20 @@ const Modal: React.FC<ModalProps> = ({
       window.setTimeout(() => {
         ;(document.activeElement as HTMLElement).blur()
         setActive(open)
-        document.querySelector('#root').setAttribute('inert', 'true')
+        if (root) {
+          root.setAttribute('inert', 'true')
+        }
       }, 10)
     }
 
     return () => {
       if (current) {
         current.removeEventListener('transitionend', transitionEnd)
-        current.removeEventListener('click', clickHandler)
+        current.removeEventListener('click', clickHandler as any)
       }
-
-      document.querySelector('#root').removeAttribute('inert')
+      if (root) {
+        root.removeAttribute('inert')
+      }
       window.removeEventListener('keyup', keyHandler)
     }
   }, [open, locked, onClose])
@@ -135,7 +140,7 @@ const Modal: React.FC<ModalProps> = ({
     <React.Fragment>
       {(open || active) && (
         <Portal parent={parent} className={parentClass}>
-          <Backdrop ref={backdrop} className={active && open && 'active'}>
+          <Backdrop ref={backdrop} className={active && open ? 'active' : ''}>
             <Content className="modal-content">{children}</Content>
           </Backdrop>
         </Portal>
