@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "strict": false,
-    "target": "ES2021",
+    "strict": true,
+    "target": "esnext",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -14,13 +14,16 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "strictPropertyInitialization": false,
-    "noEmit": true,
     "esModuleInterop": true,
-    "module": "esnext",
+    "module": "ESNext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
+    "declaration":true,
+    "declarationMap":true,
+    "sourceMap":true,
+    "outDir": "lib"
   },
   "include": ["src/**/*", "example"],
   "exclude": ["node_modules"]

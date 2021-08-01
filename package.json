@@ -3,6 +3,7 @@
   "version": "1.0.1",
   "description": "",
   "main": "./src/components/Modal",
+  "types": "./lib/index.d.ts",
   "scripts": {
     "dev": "parcel ./example/index.html",
     "build": "parcel build ./example/index.html",
