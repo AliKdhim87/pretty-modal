@@ -1,5 +1,8 @@
 import React from 'react'
+import {StyledComponent} from 'styled-components'
 import 'wicg-inert'
+export declare const Backdrop: StyledComponent<'div', any, any, never>
+export declare const ModalContainer: StyledComponent<'div', any, any, never>
 interface ModalProps {
   /**
    *  Where you can add the modal elements
@@ -25,6 +28,14 @@ interface ModalProps {
    * You can add class the the parent dev
    */
   parentClass?: string
+  /**
+   * Custom styles for the Backdrop component
+   */
+  StyledBackdrop?: StyledComponent<'div', any, any, never>
+  /**
+   * Custom styles for the ModalContainer component
+   */
+  StyledModalContainer?: StyledComponent<'div', any, any, never>
 }
 declare const Modal: React.FC<ModalProps>
 export default Modal

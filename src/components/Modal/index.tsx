@@ -1,11 +1,11 @@
 import React, {useEffect, useState, useRef} from 'react'
 
-import styled from 'styled-components'
+import styled, {StyledComponent} from 'styled-components'
 import 'wicg-inert'
 
 import Portal from '../portal'
 
-const Backdrop = styled.div`
+export const Backdrop = styled.div`
   position: fixed;
   top: 0;
   right: 0;
@@ -21,7 +21,7 @@ const Backdrop = styled.div`
   justify-content: center;
   padding: 30px 0;
 
-  & .modal-content {
+  & .modal-container {
     transform: translateY(-10rem);
     transition: all 200ms;
     opacity: 0;
@@ -32,7 +32,7 @@ const Backdrop = styled.div`
     transition-delay: 0ms;
     opacity: 1;
 
-    & .modal-content {
+    & .modal-container {
       transform: translateX(0);
       opacity: 1;
       transition-delay: 150ms;
@@ -41,7 +41,7 @@ const Backdrop = styled.div`
   }
 `
 
-const Content = styled.div`
+export const ModalContainer = styled.div`
   position: relative;
   padding: 20px;
   box-sizing: border-box;
@@ -81,6 +81,14 @@ interface ModalProps {
    * You can add class the the parent dev
    */
   parentClass?: string
+  /**
+   * Custom styles for the Backdrop component
+   */
+  StyledBackdrop?: StyledComponent<'div', any, any, never>
+  /**
+   * Custom styles for the ModalContainer component
+   */
+  StyledModalContainer?: StyledComponent<'div', any, any, never>
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -90,6 +98,8 @@ const Modal: React.FC<ModalProps> = ({
   locked,
   parent,
   parentClass,
+  StyledBackdrop,
+  StyledModalContainer,
 }: ModalProps) => {
   const [active, setActive] = useState<boolean | undefined>(false)
 
@@ -136,13 +146,18 @@ const Modal: React.FC<ModalProps> = ({
     }
   }, [open, locked, onClose])
 
+  const BackdropComponent = StyledBackdrop ? StyledBackdrop : Backdrop
+  const ModalContainerComponent = StyledModalContainer ? StyledModalContainer : ModalContainer
+
   return (
     <React.Fragment>
       {(open || active) && (
         <Portal parent={parent} className={parentClass}>
-          <Backdrop ref={backdrop} className={active && open ? 'active' : ''}>
-            <Content className="modal-content">{children}</Content>
-          </Backdrop>
+          <BackdropComponent ref={backdrop} className={active && open ? 'active' : ''}>
+            <ModalContainerComponent className="modal-container">
+              {children}
+            </ModalContainerComponent>
+          </BackdropComponent>
         </Portal>
       )}
     </React.Fragment>

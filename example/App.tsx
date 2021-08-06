@@ -1,5 +1,23 @@
 import React from 'react'
-import Modal from '../src/components/Modal'
+import Modal, {Backdrop, ModalContainer} from '../src/components/Modal'
+import styled from 'styled-components'
+
+const StyledBackdrop = styled(Backdrop)`
+  background-color: rgb(188 230 243 / 50%);
+`
+const StyledModalContainer = styled(ModalContainer)`
+  padding: 20px;
+  background-color: #3575c5;
+  color: #fff;
+  button {
+    border: none;
+    outline: none;
+    border-radius: 8px;
+    width: 100%;
+    background-color: #fff;
+    padding: 10px;
+  }
+`
 
 const App: React.FC = () => {
   const [isOpen, setIsOpen] = React.useState(false)
@@ -22,6 +40,8 @@ const App: React.FC = () => {
         Open Locked Modal
       </button>
       <Modal
+        StyledBackdrop={StyledBackdrop}
+        StyledModalContainer={StyledModalContainer}
         onClose={() => {
           setIsOpen(false)
         }}
