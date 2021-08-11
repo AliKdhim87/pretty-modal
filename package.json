@@ -8,7 +8,7 @@
     "dev": "parcel ./example/index.html",
     "build": "parcel build ./example/index.html",
     "serve": "parcel serve ./dist/index.html",
-    "typecheck": "tsc",
+    "types": "npx -p typescript tsc src/components/Modal/index.tsx --declaration --allowJs --emitDeclarationOnly --outDir lib",
     "lint": "npm-run-all \"lint:*\"",
     "lint-fix": "npm-run-all \"lint-fix:*\"",
     "lint:prettier": "prettier --check \"**/*.{js,jsx,ts,tsx,json}\"",
