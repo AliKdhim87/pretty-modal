@@ -17,7 +17,7 @@
     "lint-fix:eslint": "yarn lint:eslint --fix",
     "prepare": "husky install"
   },
-  "keywords": [],
+  "keywords": ["react", "pretty", "modal", "style-components", "typescript"],
   "author": "AliKadhim87",
   "license": "MIT",
   "dependencies": {
