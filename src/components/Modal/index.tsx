@@ -1,61 +1,90 @@
 import React, {useEffect, useState, useRef} from 'react'
-
-import styled, {StyledComponent} from 'styled-components'
+import styled, {createGlobalStyle} from 'styled-components'
 import 'wicg-inert'
 
 import Portal from '../portal'
 
-export const Backdrop = styled.div`
+const GlobalStyles = createGlobalStyle`
+  html {
+    --pretty-modal-backdrop-background-color: rgba(0, 0, 0, 0.5);
+    --pretty-modal-backdrop-backdrop-filter: blur(1px);
+    --pretty-modal-backdrop-transition: all 100ms;
+    --pretty-modal-backdrop-transition-delay: 200ms;
+    --pretty-modal-backdrop-display: flex;
+    --pretty-modal-backdrop-align-items: center;
+    --pretty-modal-backdrop-justify-content: center;
+    --pretty-modal-backdrop-padding: 30px 0;
+
+    --pretty-modal-modal-container-transform: translateY(-10rem);
+    --pretty-modal-modal-container-transition: all 200ms;
+    --pretty-modal-modal-container-padding: 20px;
+    --pretty-modal-modal-container-min-height: 50px;
+    --pretty-modal-modal-container-min-width: 50px;
+    --pretty-modal-modal-container-max-width: 80%;
+    --pretty-modal-modal-container-max-height: 100%;
+    --pretty-modal-modal-container-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    --pretty-modal-modal-container-background-color: #fff;
+    --pretty-modal-modal-container-border-radius: 2px;
+
+    --pretty-modal-active-transition-duration: 250ms;
+    --pretty-modal-active-transition-delay: 0ms;
+
+    --pretty-modal-active-modal-container-transform: translateX(0);
+    --pretty-modal-active-modal-container-transition-delay: 150ms;
+    --pretty-modal-active-modal-container-transition-duration: 350ms;
+  }
+`
+
+const Backdrop = styled.div`
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(1px);
+  background-color: var(--pretty-modal-backdrop-background-color);
+  backdrop-filter: var(--pretty-modal-backdrop-backdrop-filter);
   opacity: 0;
-  transition: all 100ms;
-  transition-delay: 200ms;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 30px 0;
+  transition: var(--pretty-modal-backdrop-transition);
+  transition-delay: var(--pretty-modal-backdrop-transition-delay);
+  display: var(--pretty-modal-backdrop-display);
+  align-items: var(--pretty-modal-backdrop-align-items);
+  justify-content: var(--pretty-modal-backdrop-justify-content);
+  padding: var(--pretty-modal-backdrop-padding);
 
   & .modal-container {
-    transform: translateY(-10rem);
-    transition: all 200ms;
+    transform: var(--pretty-modal-modal-container-transform);
+    transition: var(--pretty-modal-modal-container-transition);
     opacity: 0;
   }
 
   &.active {
-    transition-duration: 250ms;
-    transition-delay: 0ms;
+    transition-duration: var(--pretty-modal-active-transition-duration);
+    transition-delay: var(--pretty-modal-active-transition-delay);
     opacity: 1;
 
     & .modal-container {
-      transform: translateX(0);
+      transform: var(--pretty-modal-active-modal-container-transform);
       opacity: 1;
-      transition-delay: 150ms;
-      transition-duration: 350ms;
+      transition-delay: var(--pretty-modal-active-modal-container-transition-delay);
+      transition-duration: var(--pretty-modal-active-modal-container-transition-duration);
     }
   }
 `
 
-export const ModalContainer = styled.div`
+const ModalContainer = styled.div`
   position: relative;
-  padding: 20px;
+  padding: var(--pretty-modal-modal-container-padding);
   box-sizing: border-box;
-  min-height: 50px;
-  min-width: 50px;
-  max-width: 80%;
-  max-height: 100%;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  background-color: white;
-  border-radius: 2px;
+  min-height: var(--pretty-modal-modal-container-min-height);
+  min-width: var(--pretty-modal-modal-container-min-width);
+  max-width: var(--pretty-modal-modal-container-max-width);
+  max-height: var(--pretty-modal-modal-container-max-height);
+  box-shadow: var(--pretty-modal-modal-container-box-shadow);
+  background-color: var(--pretty-modal-modal-container-background-color);
+  border-radius: var(--pretty-modal-modal-container-border-radius);
   overflow-y: auto;
   overflow-x: hidden;
 `
-
 interface ModalProps {
   /**
    *  Where you can add the modal elements
@@ -81,14 +110,6 @@ interface ModalProps {
    * You can add class the the parent dev
    */
   parentClass?: string
-  /**
-   * Custom styles for the Backdrop component
-   */
-  StyledBackdrop?: StyledComponent<'div', any, any, never>
-  /**
-   * Custom styles for the ModalContainer component
-   */
-  StyledModalContainer?: StyledComponent<'div', any, any, never>
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -98,8 +119,6 @@ const Modal: React.FC<ModalProps> = ({
   locked,
   parent,
   parentClass,
-  StyledBackdrop,
-  StyledModalContainer,
 }: ModalProps) => {
   const [active, setActive] = useState<boolean | undefined>(false)
 
@@ -146,18 +165,14 @@ const Modal: React.FC<ModalProps> = ({
     }
   }, [open, locked, onClose])
 
-  const BackdropComponent = StyledBackdrop ? StyledBackdrop : Backdrop
-  const ModalContainerComponent = StyledModalContainer ? StyledModalContainer : ModalContainer
-
   return (
     <React.Fragment>
+      <GlobalStyles />
       {(open || active) && (
         <Portal parent={parent} className={parentClass}>
-          <BackdropComponent ref={backdrop} className={active && open ? 'active' : ''}>
-            <ModalContainerComponent className="modal-container">
-              {children}
-            </ModalContainerComponent>
-          </BackdropComponent>
+          <Backdrop ref={backdrop} className={active && open ? 'active' : ''}>
+            <ModalContainer className="modal-container">{children}</ModalContainer>
+          </Backdrop>
         </Portal>
       )}
     </React.Fragment>
