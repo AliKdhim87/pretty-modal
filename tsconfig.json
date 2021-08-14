@@ -19,12 +19,13 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react",
     "declaration": true,
     "declarationMap": true,
+    "declarationDir": "lib",
     "sourceMap": true,
     "outDir": "lib"
   },
-  "include": ["src/**/*", "example"],
+  "include": ["src/**/*"],
   "exclude": ["node_modules"]
 }
