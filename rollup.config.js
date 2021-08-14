@@ -18,10 +18,16 @@ export default {
       file: packageJson.main,
       format: 'cjs',
       sourcemap: true,
+      globals: {
+        react: 'React',
+        'react-dom': 'ReactDOM',
+        'styled-components': 'styled',
+      },
     },
   ],
+  external: ['react', 'react-dom', 'styled-component'],
   plugins: [
-    peerDepsExternal(),
+    peerDepsExternal({includeDependencies: true}),
     resolve(),
     commonjs(),
     typescript({useTsconfigDeclarationDir: true}),
