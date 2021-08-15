@@ -1,6 +1,6 @@
 {
   "name": "pretty-modal",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "",
   "main": "./lib/index.cjs.js",
   "modal": "./lib/index.esm.js",
