@@ -2,6 +2,8 @@ import peerDepsExternal from 'rollup-plugin-peer-deps-external'
 import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import typescript from 'rollup-plugin-typescript2'
+import babel from '@rollup/plugin-babel'
+import nodeExternal from 'rollup-plugin-node-externals'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const packageJson = require('./package.json')
@@ -24,12 +26,33 @@ export default {
         'styled-components': 'styled',
       },
     },
+    {
+      file: packageJson.modal,
+      format: 'esm',
+      sourcemap: true,
+      globals: {
+        react: 'React',
+        'react-dom': 'ReactDOM',
+        'styled-components': 'styled',
+      },
+    },
   ],
-  external: ['react', 'react-dom', 'styled-component'],
+  external: Object.keys(packageJson.peerDependencies || {}).push(/@babel\/runtime/),
   plugins: [
     peerDepsExternal({includeDependencies: true}),
-    resolve(),
-    commonjs(),
+    nodeExternal(),
+    resolve({browser: true}),
+    commonjs({
+      include: /node_modules/,
+    }),
     typescript({useTsconfigDeclarationDir: true}),
+    babel({
+      babelHelpers: 'runtime',
+      exclude: ['node_modules/**', 'lib/**'],
+      extensions: ['.ts', '.tsx'],
+      plugins: ['babel-plugin-styled-components'],
+      inputSourceMap: true,
+      plugins: ['@babel/plugin-transform-runtime'],
+    }),
   ],
 }
