@@ -4,6 +4,7 @@ import commonjs from '@rollup/plugin-commonjs'
 import typescript from 'rollup-plugin-typescript2'
 import babel from '@rollup/plugin-babel'
 import nodeExternal from 'rollup-plugin-node-externals'
+import nodePolyfills from 'rollup-plugin-node-polyfills'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const packageJson = require('./package.json')
@@ -37,7 +38,7 @@ export default {
       },
     },
   ],
-  external: Object.keys(packageJson.peerDependencies || {}).push(/@babel\/runtime/),
+  external: [/@babel\/runtime/, 'react-dom', 'react', 'styled-components'],
   plugins: [
     peerDepsExternal({includeDependencies: true}),
     nodeExternal(),
@@ -45,6 +46,7 @@ export default {
     commonjs({
       include: /node_modules/,
     }),
+    nodePolyfills(),
     typescript({useTsconfigDeclarationDir: true}),
     babel({
       babelHelpers: 'runtime',
