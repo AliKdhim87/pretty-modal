@@ -5,6 +5,7 @@ import typescript from 'rollup-plugin-typescript2'
 import babel from '@rollup/plugin-babel'
 import nodeExternal from 'rollup-plugin-node-externals'
 import nodePolyfills from 'rollup-plugin-node-polyfills'
+import filesize from 'rollup-plugin-filesize'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const packageJson = require('./package.json')
@@ -56,5 +57,6 @@ export default {
       inputSourceMap: true,
       plugins: ['@babel/plugin-transform-runtime'],
     }),
+    filesize(),
   ],
 }
