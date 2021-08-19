@@ -124,10 +124,9 @@ const Modal: React.FC<ModalProps> = ({
 
   const backdrop = useRef<HTMLDivElement | null>(null)
 
-  const root = document.querySelector('#root')
-
   useEffect(() => {
     const {current} = backdrop
+    const root = document.querySelector('#root')
 
     const transitionEnd = () => setActive(open)
 
