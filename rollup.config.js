@@ -29,7 +29,7 @@ export default {
       },
     },
     {
-      file: packageJson.modal,
+      file: packageJson.module,
       format: 'esm',
       sourcemap: true,
       globals: {
