@@ -1,11 +1,13 @@
 {
   "name": "pretty-modal",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "",
   "main": "./lib/index.cjs.js",
   "module": "./lib/index.esm.js",
   "types": "./lib/Modal/index.d.ts",
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "build": "rollup -c",
     "lint": "npm-run-all \"lint:*\"",
