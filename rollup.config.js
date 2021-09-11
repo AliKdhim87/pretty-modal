@@ -15,6 +15,12 @@ const packageJson = require('./package.json')
  * @type {import('rollup').RollupOptions}
  */
 
+const outputGlobals = {
+  react: 'React',
+  'react-dom': 'ReactDOM',
+  'styled-components': 'styled',
+}
+
 export default {
   input: 'src/components/Modal/index.tsx',
   output: [
@@ -22,21 +28,13 @@ export default {
       file: packageJson.main,
       format: 'cjs',
       sourcemap: true,
-      globals: {
-        react: 'React',
-        'react-dom': 'ReactDOM',
-        'styled-components': 'styled',
-      },
+      globals: outputGlobals,
     },
     {
       file: packageJson.module,
       format: 'esm',
       sourcemap: true,
-      globals: {
-        react: 'React',
-        'react-dom': 'ReactDOM',
-        'styled-components': 'styled',
-      },
+      globals: outputGlobals,
     },
   ],
   external: [/@babel\/runtime/, 'react-dom', 'react', 'styled-components'],
@@ -50,12 +48,13 @@ export default {
     nodePolyfills(),
     typescript({useTsconfigDeclarationDir: true}),
     babel({
+      presets: ['@babel/preset-react'],
       babelHelpers: 'runtime',
       exclude: ['node_modules/**', 'lib/**'],
       extensions: ['.ts', '.tsx'],
-      plugins: ['babel-plugin-styled-components'],
       inputSourceMap: true,
-      plugins: ['@babel/plugin-transform-runtime'],
+      plugins: ['@babel/plugin-transform-runtime', 'babel-plugin-styled-components'],
+      exclude: /node_modules/,
     }),
     filesize(),
   ],
