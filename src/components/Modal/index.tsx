@@ -1,8 +1,7 @@
 import React, {useEffect, useState, useRef} from 'react'
 import styled, {createGlobalStyle} from 'styled-components'
 import {disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks} from 'body-scroll-lock'
-
-import 'wicg-inert'
+import FocusTrap from 'focus-trap-react'
 
 import Portal from '../portal'
 
@@ -140,13 +139,9 @@ const Modal: React.FC<ModalProps> = ({
 
   useEffect(() => {
     const {current} = backdrop
-    const root = document.querySelectorAll('div')[0]
 
     targetElement = targetRef.current
     const transitionEnd = () => setActive(open)
-
-    // const keyHandler = (event: {which: number}) =>
-    //   !locked && [27].indexOf(event.which) >= 0 && onClose ? onClose() : undefined
 
     const keyHandler = (event: {which: number}) => {
       if (!locked && [27].indexOf(event.which) >= 0 && onClose) {
@@ -154,9 +149,6 @@ const Modal: React.FC<ModalProps> = ({
         enableBodyScroll(targetElement as HTMLElement | Element)
       }
     }
-
-    // const clickHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) =>
-    //   !locked && e.target === current && onClose ? onClose() : undefined
 
     const clickHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
       if (!locked && e.target === current && onClose) {
@@ -175,9 +167,7 @@ const Modal: React.FC<ModalProps> = ({
       window.setTimeout(() => {
         ;(document.activeElement as HTMLElement).blur()
         setActive(open)
-        if (root) {
-          root.setAttribute('inert', 'true')
-        }
+
         disableBodyScroll(targetElement as HTMLElement | Element)
       }, 10)
     }
@@ -186,9 +176,6 @@ const Modal: React.FC<ModalProps> = ({
       if (current) {
         current.removeEventListener('transitionend', transitionEnd)
         current.removeEventListener('click', clickHandler as any)
-      }
-      if (root) {
-        root.removeAttribute('inert')
       }
       if (targetRef.current) {
         clearAllBodyScrollLocks()
@@ -203,16 +190,18 @@ const Modal: React.FC<ModalProps> = ({
       {(open || active) && (
         <Portal parent={parent} className={parentClass}>
           <Backdrop ref={backdrop} className={active && open ? 'active' : ''}>
-            <ModalContainer
-              ref={targetRef}
-              role="dialog"
-              aria-modal={open}
-              className="modal-container"
-              aria-describedby={ariaDescribedby}
-              aria-labelledby={ariaLabelledby}
-            >
-              {children}
-            </ModalContainer>
+            <FocusTrap>
+              <ModalContainer
+                ref={targetRef}
+                role="dialog"
+                aria-modal={open}
+                className="modal-container"
+                aria-describedby={ariaDescribedby}
+                aria-labelledby={ariaLabelledby}
+              >
+                {children}
+              </ModalContainer>
+            </FocusTrap>
           </Backdrop>
         </Portal>
       )}
