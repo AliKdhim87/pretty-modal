@@ -1,5 +1,4 @@
 import React from 'react';
-import 'wicg-inert';
 interface ModalProps {
     /**
      *  Where you can add the modal elements
@@ -25,6 +24,14 @@ interface ModalProps {
      * You can add class the the parent dev
      */
     parentClass?: string;
+    /**
+     * Gives the dialog an accessible name by referring to the element that provides the dialog title
+     */
+    ariaLabelledby?: string;
+    /**
+     * Gives the dialog an accessible description by referring to the dialog content that describes the primary message or purpose of the dialog.
+     */
+    ariaDescribedby?: string;
 }
 declare const Modal: React.FC<ModalProps>;
 export default Modal;
