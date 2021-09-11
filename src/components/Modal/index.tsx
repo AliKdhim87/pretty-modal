@@ -1,5 +1,7 @@
 import React, {useEffect, useState, useRef} from 'react'
 import styled, {createGlobalStyle} from 'styled-components'
+import {disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks} from 'body-scroll-lock'
+
 import 'wicg-inert'
 
 import Portal from '../portal'
@@ -133,17 +135,35 @@ const Modal: React.FC<ModalProps> = ({
   const [active, setActive] = useState<boolean | undefined>(false)
   const backdrop = useRef<HTMLDivElement | null>(null)
 
+  const targetRef = React.useRef(null)
+  let targetElement: Element | null = null
+
   useEffect(() => {
     const {current} = backdrop
     const root = document.querySelectorAll('div')[0]
 
+    targetElement = targetRef.current
     const transitionEnd = () => setActive(open)
 
-    const keyHandler = (event: {which: number}) =>
-      !locked && [27].indexOf(event.which) >= 0 && onClose ? onClose() : undefined
+    // const keyHandler = (event: {which: number}) =>
+    //   !locked && [27].indexOf(event.which) >= 0 && onClose ? onClose() : undefined
 
-    const clickHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) =>
-      !locked && e.target === current && onClose ? onClose() : undefined
+    const keyHandler = (event: {which: number}) => {
+      if (!locked && [27].indexOf(event.which) >= 0 && onClose) {
+        onClose()
+        enableBodyScroll(targetElement as HTMLElement | Element)
+      }
+    }
+
+    // const clickHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) =>
+    //   !locked && e.target === current && onClose ? onClose() : undefined
+
+    const clickHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+      if (!locked && e.target === current && onClose) {
+        onClose()
+        enableBodyScroll(targetElement as HTMLElement | Element)
+      }
+    }
 
     if (current) {
       current && current.addEventListener('transitionend', transitionEnd)
@@ -158,6 +178,7 @@ const Modal: React.FC<ModalProps> = ({
         if (root) {
           root.setAttribute('inert', 'true')
         }
+        disableBodyScroll(targetElement as HTMLElement | Element)
       }, 10)
     }
 
@@ -168,6 +189,9 @@ const Modal: React.FC<ModalProps> = ({
       }
       if (root) {
         root.removeAttribute('inert')
+      }
+      if (targetRef.current) {
+        clearAllBodyScrollLocks()
       }
       window.removeEventListener('keyup', keyHandler)
     }
@@ -180,6 +204,7 @@ const Modal: React.FC<ModalProps> = ({
         <Portal parent={parent} className={parentClass}>
           <Backdrop ref={backdrop} className={active && open ? 'active' : ''}>
             <ModalContainer
+              ref={targetRef}
               role="dialog"
               aria-modal={open}
               className="modal-container"
