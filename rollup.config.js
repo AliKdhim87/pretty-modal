@@ -18,8 +18,6 @@ const packageJson = require('./package.json')
 const outputGlobals = {
   react: 'React',
   'react-dom': 'ReactDOM',
-  'styled-components': 'styled',
-  'focus-trap-react': 'FocusTrap',
 }
 
 export default {
@@ -38,7 +36,7 @@ export default {
       globals: outputGlobals,
     },
   ],
-  external: [/@babel\/runtime/, 'react-dom', 'react', 'styled-components', 'focus-trap-react'],
+  external: [/@babel\/runtime/, 'react-dom', 'react'],
   plugins: [
     peerDepsExternal({includeDependencies: true}),
     nodeExternal(),
