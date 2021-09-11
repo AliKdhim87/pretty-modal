@@ -110,6 +110,14 @@ interface ModalProps {
    * You can add class the the parent dev
    */
   parentClass?: string
+  /**
+   * Gives the dialog an accessible name by referring to the element that provides the dialog title
+   */
+  ariaLabelledby?: string
+  /**
+   * Gives the dialog an accessible description by referring to the dialog content that describes the primary message or purpose of the dialog.
+   */
+  ariaDescribedby?: string
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -119,14 +127,15 @@ const Modal: React.FC<ModalProps> = ({
   locked,
   parent,
   parentClass,
+  ariaDescribedby,
+  ariaLabelledby,
 }: ModalProps) => {
   const [active, setActive] = useState<boolean | undefined>(false)
-
   const backdrop = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     const {current} = backdrop
-    const root = document.querySelector('#root')
+    const root = document.querySelectorAll('div')[0]
 
     const transitionEnd = () => setActive(open)
 
@@ -170,7 +179,15 @@ const Modal: React.FC<ModalProps> = ({
       {(open || active) && (
         <Portal parent={parent} className={parentClass}>
           <Backdrop ref={backdrop} className={active && open ? 'active' : ''}>
-            <ModalContainer className="modal-container">{children}</ModalContainer>
+            <ModalContainer
+              role="dialog"
+              aria-modal={open}
+              className="modal-container"
+              aria-describedby={ariaDescribedby}
+              aria-labelledby={ariaLabelledby}
+            >
+              {children}
+            </ModalContainer>
           </Backdrop>
         </Portal>
       )}
