@@ -189,8 +189,8 @@ const Modal: React.FC<ModalProps> = ({
       <GlobalStyles />
       {(open || active) && (
         <Portal parent={parent} className={parentClass}>
-          <Backdrop ref={backdrop} className={active && open ? 'active' : ''}>
-            <FocusTrap>
+          <FocusTrap>
+            <Backdrop ref={backdrop} className={active && open ? 'active' : ''}>
               <ModalContainer
                 ref={targetRef}
                 role="dialog"
@@ -201,8 +201,8 @@ const Modal: React.FC<ModalProps> = ({
               >
                 {children}
               </ModalContainer>
-            </FocusTrap>
-          </Backdrop>
+            </Backdrop>
+          </FocusTrap>
         </Portal>
       )}
     </React.Fragment>
