@@ -1,7 +1,7 @@
 import React from 'react';
 interface PortalProps {
     children?: React.ReactNode;
-    parent?: HTMLElement;
+    parent?: string;
     className?: string;
 }
 declare const Portal: React.FC<PortalProps>;

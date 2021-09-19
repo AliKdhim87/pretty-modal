@@ -17,9 +17,9 @@ interface ModalProps {
      */
     locked?: boolean;
     /**
-     * You can specify the parent of the modal where you can render the portal by default it will create a div
+     * You can specify the parent of the modal where you can render it.
      */
-    parent?: HTMLElement;
+    parent?: string;
     /**
      * You can add class the the parent dev
      */
