@@ -238,11 +238,13 @@ export default App
 
 ## Props
 
-| Name        | Type            | Default            | Description                                                                                                  |
-| ----------- | --------------- | ------------------ | ------------------------------------------------------------------------------------------------------------ |
-| children    | React.ReactNode | `undefined`        | Where you can add the modal elements                                                                         |
-| open        | boolean         | `false`            | When it's true it will open the modal                                                                        |
-| onClose     | `() => void`    | `undefined`        | Callback fired when the Modal is requested to be closed by a click on the overlay or when user press esc key |
-| locked      | boolean         | `false`            | When it's true it will prevent close the modal when you click on the backdrop of the close button            |
-| parent      | HTMLElement     | `document.body`    | You can specify the parent of the modal where you can render the portal by default it will create a div      |
-| parentClass | string          | `__pretty-modal__` | You change the parent dev className                                                                          |
+| Name            | Type            | Default            | Description                                                                                                                                |
+| --------------- | --------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| children        | React.ReactNode | `undefined`        | Where you can add the modal elements                                                                                                       |
+| open            | boolean         | `false`            | When it's true it will open the modal                                                                                                      |
+| onClose         | `() => void`    | `undefined`        | Callback fired when the Modal is requested to be closed by a click on the overlay or when user press esc key                               |
+| locked          | boolean         | `false`            | When it's true it will prevent close the modal when you click on the backdrop of the close button                                          |
+| parent          | string          | `document.body`    | You can specify the parent of the modal where you can render it.                                                                           |
+| parentClass     | string          | `__pretty-modal__` | You change the parent dev className                                                                                                        |
+| ariaLabelledby  | string          | `undefined`        | Gives the dialog an accessible name by referring to the element that provides the dialog title                                             |
+| ariaDescribedby | string          | `undefined`        | Gives the dialog an accessible description by referring to the dialog content that describes the primary message or purpose of the dialog. |
