@@ -3,7 +3,7 @@ name: Release
 
 on:
   push:
-    branches: [main, beta]
+    branches: [master, beta]
 
 jobs:
   release:
@@ -18,15 +18,15 @@ jobs:
       with:
         node-version: 16.x
     - name: Install dependencies
-      run: npx ci
+      run: yarn install
     - name: Install semantic-release extra plugins
-      run: npm install --save-dev @semantic-release/changelog @semantic-release/git
+      run: yarn add -D @semantic-release/changelog @semantic-release/git
     - name: Lint
-      run: npm run lint-fix
-    - name: Test
-      run: npm run test:unit --if-present
+      run: yarn lint-fix
+    # - name: Test
+    #   run: yarn run test:unit --if-present
     - name: Build
-      run: npm run build
+      run: yarn run build
     - name: Release
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
