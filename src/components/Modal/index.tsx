@@ -86,7 +86,7 @@ const ModalContainer = styled.div`
   overflow-y: auto;
   overflow-x: hidden;
 `
-interface ModalProps {
+export interface ModalProps {
   /**
    *  Where you can add the modal elements
    */
@@ -119,6 +119,14 @@ interface ModalProps {
    * Gives the dialog an accessible description by referring to the dialog content that describes the primary message or purpose of the dialog.
    */
   ariaDescribedby?: string
+  /**
+   * By default, when a focus trap is activated the first element in the
+   * focus trap's tab order will receive focus. With this option you can
+   * specify a different element with using className, id, tag name to receive that initial focus,
+   *  or use `false` for no initially focused element at all.
+   *
+   */
+  initialFocus?: string | false
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -130,6 +138,7 @@ const Modal: React.FC<ModalProps> = ({
   parentClass,
   ariaDescribedby,
   ariaLabelledby,
+  initialFocus,
 }: ModalProps) => {
   const [active, setActive] = useState<boolean | undefined>(false)
   const backdrop = useRef<HTMLDivElement | null>(null)
@@ -184,12 +193,30 @@ const Modal: React.FC<ModalProps> = ({
     }
   }, [open, locked, onClose])
 
+  const focusTrapOptions = {
+    checkCanFocusTrap: (trapContainers: Element[]) => {
+      const results = trapContainers.map(trapContainer => {
+        return new Promise<void>(resolve => {
+          const interval = setInterval(() => {
+            if (getComputedStyle(trapContainer).opacity !== '0') {
+              resolve()
+              clearInterval(interval)
+            }
+          }, 10)
+        })
+      })
+      // Return a promise that resolves when all the trap containers are able to receive focus
+      return Promise.all(results)
+    },
+    initialFocus: initialFocus,
+  } as any
+
   return (
     <React.Fragment>
       <GlobalStyles />
       {(open || active) && (
         <Portal parent={parent} className={parentClass}>
-          <FocusTrap>
+          <FocusTrap active={active} focusTrapOptions={focusTrapOptions}>
             <Backdrop ref={backdrop} className={active && open ? 'active' : ''}>
               <ModalContainer
                 ref={targetRef}
