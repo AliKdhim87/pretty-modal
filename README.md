@@ -162,22 +162,15 @@ export default App
 ## locked Modal example
 
 ```jsx
-import React from 'react'
+import React, {useState} from 'react'
 import Modal from 'pretty-modal'
 
-const App: React.FC = () => {
-  const [isOpen, setIsOpen] = React.useState(false)
-  const [isLocked, setIsLocked] = React.useState(true)
-  const [isLockedOpen, setIsLockedOpen] = React.useState(false)
+const App = () => {
+  const [isLocked, setIsLocked] = useState(true)
+  const [isLockedOpen, setIsLockedOpen] = useState(false)
+
   return (
-    <div className="App">
-      <button
-        onClick={() => {
-          setIsOpen(true)
-        }}
-      >
-        Open Modal
-      </button>
+    <div>
       <button
         onClick={() => {
           setIsLockedOpen(true)
@@ -185,30 +178,6 @@ const App: React.FC = () => {
       >
         Open Locked Modal
       </button>
-      <Modal
-        StyledBackdrop={StyledBackdrop}
-        StyledModalContainer={StyledModalContainer}
-        onClose={() => {
-          setIsOpen(false)
-        }}
-        open={isOpen}
-      >
-        <p>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laudantium porro deleniti velit
-          vel. Est error molestias corporis tenetur voluptatibus autem impedit dolore dolores
-          accusamus inventore id vero quos, ut dicta.
-        </p>
-
-        <p style={{textAlign: 'center'}}>
-          <button
-            onClick={() => {
-              setIsOpen(false)
-            }}
-          >
-            Close
-          </button>
-        </p>
-      </Modal>
       <Modal
         locked={isLocked}
         onClose={() => {
@@ -219,7 +188,7 @@ const App: React.FC = () => {
       >
         <p>s no escaping me.</p>
         <p>Once unlocked clicking outside or pressing esc will close me.</p>
-        <p style={{textAlign: 'center'}}>
+        <p>
           <button
             onClick={() => {
               setIsLocked(!isLocked)
