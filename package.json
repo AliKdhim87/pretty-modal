@@ -1,6 +1,6 @@
 {
   "name": "pretty-modal",
-  "version": "0.0.0-semantic-release",
+  "version": "2.1.2-semantic-release",
   "description": "Lightweight modal react component it's accessible easy to have custom style using CSS variables. ",
   "main": "./lib/index.cjs.js",
   "module": "./lib/index.esm.js",
