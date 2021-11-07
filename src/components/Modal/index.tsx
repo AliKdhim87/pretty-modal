@@ -172,13 +172,9 @@ const Modal: React.FC<ModalProps> = ({
       window.addEventListener('keyup', keyHandler)
     }
 
-    if (open) {
-      window.setTimeout(() => {
-        ;(document.activeElement as HTMLElement).blur()
-        setActive(open)
-
-        disableBodyScroll(targetElement as HTMLElement | Element)
-      }, 10)
+    if (open && targetElement) {
+      setActive(open)
+      disableBodyScroll(targetElement)
     }
 
     return () => {
@@ -186,12 +182,12 @@ const Modal: React.FC<ModalProps> = ({
         current.removeEventListener('transitionend', transitionEnd)
         current.removeEventListener('click', clickHandler as any)
       }
-      if (targetRef.current) {
+      if (targetElement) {
         clearAllBodyScrollLocks()
       }
       window.removeEventListener('keyup', keyHandler)
     }
-  }, [open, locked, onClose])
+  }, [open, locked, onClose, targetElement])
 
   const focusTrapOptions = {
     checkCanFocusTrap: (trapContainers: Element[]) => {
@@ -217,9 +213,14 @@ const Modal: React.FC<ModalProps> = ({
       {(open || active) && (
         <Portal parent={parent} className={parentClass}>
           <FocusTrap active={active} focusTrapOptions={focusTrapOptions}>
-            <Backdrop ref={backdrop} className={active && open ? 'active' : ''}>
+            <Backdrop
+              ref={backdrop}
+              className={active && open ? 'active' : ''}
+              data-testid="backdrop"
+            >
               <ModalContainer
                 ref={targetRef}
+                data-testid="modal-container"
                 role="dialog"
                 aria-modal={open}
                 className="modal-container"
