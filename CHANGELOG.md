@@ -1,3 +1,9 @@
+## [2.2.2](https://github.com/AliKdhim87/pretty-modal/compare/v2.2.1...v2.2.2) (2021-11-14)
+
+### Bug Fixes
+
+- add unit testing ([310abdb](https://github.com/AliKdhim87/pretty-modal/commit/310abdb618a080003c5574af94eb9d2c4344efeb))
+
 ## [2.2.1](https://github.com/AliKdhim87/pretty-modal/compare/v2.2.0...v2.2.1) (2021-11-06)
 
 ### Bug Fixes
