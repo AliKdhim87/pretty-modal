@@ -1,3 +1,9 @@
+## [2.2.3](https://github.com/AliKdhim87/pretty-modal/compare/v2.2.2...v2.2.3) (2021-11-15)
+
+### Bug Fixes
+
+- **docs:** update README ([6c53280](https://github.com/AliKdhim87/pretty-modal/commit/6c5328033b3865cba8147c9d3cab2d2e65dd7fc3))
+
 ## [2.2.2](https://github.com/AliKdhim87/pretty-modal/compare/v2.2.1...v2.2.2) (2021-11-14)
 
 ### Bug Fixes
