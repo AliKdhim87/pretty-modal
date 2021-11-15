@@ -7,6 +7,8 @@
 - Light weight
 - Custom styles
 - CSS variables
+- Accessibility
+- FocusTrap
 
 ## Installing
 
@@ -44,21 +46,14 @@ const App = () => {
         }}
         open={isOpen}
       >
-        <p>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laudantium porro deleniti velit
-          vel. Est error molestias corporis tenetur voluptatibus autem impedit dolore dolores
-          accusamus inventore id vero quos, ut dicta.
-        </p>
-
-        <p style={{textAlign: 'center'}}>
-          <button
-            onClick={() => {
-              setIsOpen(false)
-            }}
-          >
-            Close
-          </button>
-        </p>
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+        <button
+          onClick={() => {
+            setIsOpen(false)
+          }}
+        >
+          Close
+        </button>
       </Modal>
     </div>
   )
@@ -121,8 +116,6 @@ const App = () => {
         Open Modal
       </button>
       <Modal
-        StyledBackdrop={StyledBackdrop}
-        StyledModalContainer={StyledModalContainer}
         onClose={() => {
           setIsOpen(false)
         }}
@@ -130,19 +123,14 @@ const App = () => {
       >
         <p>
           Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laudantium porro deleniti velit
-          vel. Est error molestias corporis tenetur voluptatibus autem impedit dolore dolores
-          accusamus inventore id vero quos, ut dicta.
         </p>
-
-        <p style={{textAlign: 'center'}}>
-          <button
-            onClick={() => {
-              setIsOpen(false)
-            }}
-          >
-            Close
-          </button>
-        </p>
+        <button
+          onClick={() => {
+            setIsOpen(false)
+          }}
+        >
+          Close
+        </button>
       </Modal>
     </div>
   )
@@ -203,6 +191,29 @@ const App = () => {
 }
 
 export default App
+```
+
+## Accessibility
+
+```jsx
+<Modal
+  ariaLabelledby="modal1_label"
+  ariaDescribedby="modal1_desc"
+  onClose={() => {
+    setIsOpen(false)
+  }}
+  open={isOpen}
+>
+  <h1 id="modal1_label">Your modal title</h1>
+  <p id="modal1_desc">Your modal Description</p>
+  <button
+    onClick={() => {
+      setIsOpen(false)
+    }}
+  >
+    Close
+  </button>
+</Modal>
 ```
 
 ## Props

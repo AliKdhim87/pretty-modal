@@ -25,7 +25,10 @@
     "pretty",
     "modal",
     "style-components",
-    "typescript"
+    "typescript",
+    "Accessibility",
+    "react-modal",
+    "FocusTrap"
   ],
   "author": "AliKadhim87",
   "license": "MIT",
