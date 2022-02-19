@@ -1,3 +1,9 @@
+## [2.2.4](https://github.com/AliKdhim87/pretty-modal/compare/v2.2.3...v2.2.4) (2022-02-19)
+
+### Bug Fixes
+
+- **package.json, gitignore:** update dependency ([18a3a7d](https://github.com/AliKdhim87/pretty-modal/commit/18a3a7df99385149476ff9b99e8d62bca68b202f))
+
 ## [2.2.3](https://github.com/AliKdhim87/pretty-modal/compare/v2.2.2...v2.2.3) (2021-11-15)
 
 ### Bug Fixes
