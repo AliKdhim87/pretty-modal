@@ -1,3 +1,9 @@
+## [2.2.5](https://github.com/AliKdhim87/pretty-modal/compare/v2.2.4...v2.2.5) (2022-02-19)
+
+### Bug Fixes
+
+- **package.json:** fix the types issue ([3d9ffea](https://github.com/AliKdhim87/pretty-modal/commit/3d9ffea0dfec3f1776bdea67ce374c7e32518795))
+
 ## [2.2.4](https://github.com/AliKdhim87/pretty-modal/compare/v2.2.3...v2.2.4) (2022-02-19)
 
 ### Bug Fixes
