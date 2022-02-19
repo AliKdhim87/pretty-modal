@@ -4,7 +4,7 @@
   "description": "Lightweight modal react component it's accessible easy to have custom style using CSS variables. ",
   "main": "./lib/index.cjs.js",
   "module": "./lib/index.esm.js",
-  "types": "./lib/Modal/index.d.ts",
+  "types": "./lib/components/Modal/index.d.ts",
   "files": [
     "lib"
   ],
