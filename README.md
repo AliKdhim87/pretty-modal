@@ -9,6 +9,7 @@
 - CSS variables
 - Accessibility
 - FocusTrap
+- Portal
 
 ## Installing
 
@@ -22,11 +23,13 @@ or
 yarn add pretty-modal
 ```
 
+> Note: below version 3 use default import `import Modal from 'pretty-modal'`
+
 ## Basic Example
 
 ```jsx
 import React from 'react'
-import Modal from 'pretty-modal'
+import {Modal} from 'pretty-modal'
 
 const App = () => {
   const [isOpen, setIsOpen] = React.useState(false)
@@ -99,7 +102,7 @@ You can use the CSS variables for custom Style
 
 ```jsx
 import React from 'react'
-import Modal from 'pretty-modal'
+import {Modal} from 'pretty-modal'
 
 import './App.css'
 
@@ -151,7 +154,7 @@ export default App
 
 ```jsx
 import React, {useState} from 'react'
-import Modal from 'pretty-modal'
+import {Modal} from 'pretty-modal'
 
 const App = () => {
   const [isLocked, setIsLocked] = useState(true)
@@ -214,6 +217,15 @@ export default App
     Close
   </button>
 </Modal>
+```
+
+## Portal
+
+Use `<Portal/>` separately
+
+```jsx
+import {Portal} from 'pretty-modal'
+;<Portal>Hello, World</Portal>
 ```
 
 ## Props

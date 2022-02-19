@@ -21,7 +21,7 @@ const outputGlobals = {
 }
 
 export default {
-  input: 'src/components/Modal/index.tsx',
+  input: 'src/components/index.tsx',
   output: [
     {
       file: packageJson.main,
@@ -53,7 +53,6 @@ export default {
       extensions: ['.ts', '.tsx'],
       inputSourceMap: true,
       plugins: ['@babel/plugin-transform-runtime', 'babel-plugin-styled-components'],
-      exclude: /node_modules/,
     }),
     filesize(),
   ],

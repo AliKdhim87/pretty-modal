@@ -1,6 +1,6 @@
 import React from 'react'
 import {render, cleanup, fireEvent} from '@testing-library/react'
-import Modal from '../components/Modal'
+import {Modal} from '../components'
 
 afterEach(cleanup)
 

@@ -3,7 +3,7 @@ import styled, {createGlobalStyle} from 'styled-components'
 import {disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks} from 'body-scroll-lock'
 import FocusTrap from 'focus-trap-react'
 
-import Portal from '../portal'
+import {Portal} from '../portal'
 
 const GlobalStyles = createGlobalStyle`
   html {
@@ -129,7 +129,7 @@ export interface ModalProps {
   initialFocus?: string | false
 }
 
-const Modal: React.FC<ModalProps> = ({
+export const Modal: React.FC<ModalProps> = ({
   children,
   open,
   onClose,
@@ -236,5 +236,3 @@ const Modal: React.FC<ModalProps> = ({
     </React.Fragment>
   )
 }
-
-export default Modal

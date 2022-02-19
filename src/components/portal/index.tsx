@@ -7,7 +7,7 @@ interface PortalProps {
   className?: string
 }
 
-const Portal: React.FC<PortalProps> = ({children, parent, className}) => {
+export const Portal: React.FC<PortalProps> = ({children, parent, className}) => {
   const el = useMemo(() => document.createElement('div'), [])
 
   useEffect(() => {
@@ -25,5 +25,3 @@ const Portal: React.FC<PortalProps> = ({children, parent, className}) => {
   }, [el, parent, className])
   return ReactDOM.createPortal(children, el)
 }
-
-export default Portal
