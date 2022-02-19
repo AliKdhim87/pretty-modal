@@ -1,3 +1,9 @@
+## [2.2.6](https://github.com/AliKdhim87/pretty-modal/compare/v2.2.5...v2.2.6) (2022-02-19)
+
+### Performance Improvements
+
+- **modal, portal:** change to name export include portal ([0613e0e](https://github.com/AliKdhim87/pretty-modal/commit/0613e0ed5ef206d431267c9569e97128d273b4d6))
+
 ## [2.2.5](https://github.com/AliKdhim87/pretty-modal/compare/v2.2.4...v2.2.5) (2022-02-19)
 
 ### Bug Fixes
