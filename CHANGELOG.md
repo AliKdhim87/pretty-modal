@@ -1,3 +1,15 @@
+# [3.0.0](https://github.com/AliKdhim87/pretty-modal/compare/v2.2.6...v3.0.0) (2022-02-20)
+
+### Performance Improvements
+
+- **version:** correcting version ([309dcab](https://github.com/AliKdhim87/pretty-modal/commit/309dcabdf68c43527829785be8a57d00d4e86907))
+
+### BREAKING CHANGES
+
+- **version:** previous version supposed to be breaking change
+
+changes refer to 0613e0ed5ef206d431267c9569e97128d273b4d6
+
 ## [2.2.6](https://github.com/AliKdhim87/pretty-modal/compare/v2.2.5...v2.2.6) (2022-02-19)
 
 ### Performance Improvements
