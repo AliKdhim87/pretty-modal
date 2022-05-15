@@ -1,3 +1,9 @@
+## [3.0.1](https://github.com/AliKdhim87/pretty-modal/compare/v3.0.0...v3.0.1) (2022-05-15)
+
+### Bug Fixes
+
+- **dependencies:** update dependencies ([4405c18](https://github.com/AliKdhim87/pretty-modal/commit/4405c18f1126743ee83299dd29ac56dd02aca961))
+
 # [3.0.0](https://github.com/AliKdhim87/pretty-modal/compare/v2.2.6...v3.0.0) (2022-02-20)
 
 ### Performance Improvements
