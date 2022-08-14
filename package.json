@@ -10,6 +10,7 @@
   ],
   "scripts": {
     "build": "rollup -c",
+    "semantic-release":"npm run semantic-release",
     "lint": "npm-run-all \"lint:*\"",
     "lint-fix": "npm-run-all \"lint-fix:*\"",
     "lint:prettier": "prettier --check \"**/*.{js,jsx,ts,tsx,json}\"",
@@ -48,6 +49,8 @@
     "@rollup/plugin-babel": "^5.3.1",
     "@rollup/plugin-commonjs": "22.0.2",
     "@rollup/plugin-node-resolve": "13.3.0",
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/git": "^10.0.1",
     "@testing-library/react": "^13.3.0",
     "@types/body-scroll-lock": "^3.1.0",
     "@types/jest": "^28.1.6",
@@ -79,6 +82,7 @@
     "rollup-plugin-node-polyfills": "^0.2.1",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-typescript2": "0.32.1",
+    "semantic-release": "^19.0.3",
     "ts-jest": "^28.0.7",
     "tslib": "^2.4.0",
     "typescript": "^4.7.4"
