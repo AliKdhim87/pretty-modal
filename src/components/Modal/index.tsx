@@ -5,7 +5,7 @@ import FocusTrap from 'focus-trap-react'
 
 import {Portal} from '../portal'
 
-const GlobalStyles = createGlobalStyle`
+const GlobalStyles: any = createGlobalStyle`
   html {
     --pretty-modal-backdrop-background-color: rgba(0, 0, 0, 0.5);
     --pretty-modal-backdrop-backdrop-filter: blur(1px);
