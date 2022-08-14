@@ -3,3 +3,4 @@ package.json
 public
 lib
 coverage
+/storybook-static

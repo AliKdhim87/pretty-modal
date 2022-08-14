@@ -9,20 +9,23 @@
     "lib"
   ],
   "scripts": {
-    "build": "rollup -c",
+    "prebuild":"npm run test",
+    "build": "npm-run-all build:**",
+    "build:package": "rollup -c",
+    "build:storybook": "build-storybook",
     "semantic-release":"semantic-release",
-    "lint": "npm-run-all \"lint:*\"",
-    "lint-fix": "npm-run-all \"lint-fix:*\"",
-    "lint:prettier": "prettier --check \"**/*.{js,jsx,ts,tsx,json}\"",
-    "lint-fix:prettier": "yarn lint:prettier --write",
+    "lint": "npm-run-all lint:**",
     "lint:eslint": "eslint \"**/*.{js,jsx,ts,tsx,json}\"",
+    "lint:prettier": "prettier --check \"**/*.{js,jsx,ts,tsx,json}\"",
+    "lint-fix": "npm-run-all lint-fix:**",
+    "lint-fix:prettier": "yarn lint:prettier --write",
     "lint-fix:eslint": "yarn lint:eslint --fix",
     "prepare": "husky install",
-    "test": "jest",
-    "test-coverage": "jest --coverage",
+    "test": "npm-run-all test:**",
+    "test:lib": "jest",
+    "test:coverage": "jest --coverage",
     "test:generate-output": "jest --json --outputFile=.jest-test-results.json",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "storybook": "start-storybook -p 6006"
   },
   "keywords": [
     "react",
