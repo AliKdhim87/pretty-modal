@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "build": "rollup -c",
-    "semantic-release":"npm run semantic-release",
+    "semantic-release":"semantic-release",
     "lint": "npm-run-all \"lint:*\"",
     "lint-fix": "npm-run-all \"lint-fix:*\"",
     "lint:prettier": "prettier --check \"**/*.{js,jsx,ts,tsx,json}\"",
