@@ -9,17 +9,23 @@
     "lib"
   ],
   "scripts": {
-    "build": "rollup -c",
+    "prebuild":"npm run test",
+    "build": "npm-run-all build:**",
+    "build:package": "rollup -c",
+    "build:storybook": "build-storybook",
     "semantic-release":"semantic-release",
-    "lint": "npm-run-all \"lint:*\"",
-    "lint-fix": "npm-run-all \"lint-fix:*\"",
-    "lint:prettier": "prettier --check \"**/*.{js,jsx,ts,tsx,json}\"",
-    "lint-fix:prettier": "yarn lint:prettier --write",
+    "lint": "npm-run-all lint:**",
     "lint:eslint": "eslint \"**/*.{js,jsx,ts,tsx,json}\"",
+    "lint:prettier": "prettier --check \"**/*.{js,jsx,ts,tsx,json}\"",
+    "lint-fix": "npm-run-all lint-fix:**",
+    "lint-fix:prettier": "yarn lint:prettier --write",
     "lint-fix:eslint": "yarn lint:eslint --fix",
     "prepare": "husky install",
-    "test": "jest",
-    "test-coverage": "jest --coverage"
+    "test": "npm-run-all test:**",
+    "test:lib": "jest",
+    "test:coverage": "jest --coverage",
+    "test:generate-output": "jest --json --outputFile=.jest-test-results.json",
+    "storybook": "start-storybook -p 6006"
   },
   "keywords": [
     "react",
@@ -51,6 +57,12 @@
     "@rollup/plugin-node-resolve": "13.3.0",
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/git": "^10.0.1",
+    "@storybook/addon-actions": "^6.5.10",
+    "@storybook/addon-essentials": "^6.5.10",
+    "@storybook/addon-jest": "^6.5.10",
+    "@storybook/addon-links": "^6.5.10",
+    "@storybook/addon-postcss": "^2.0.0",
+    "@storybook/react": "^6.5.10",
     "@testing-library/react": "^13.3.0",
     "@types/body-scroll-lock": "^3.1.0",
     "@types/jest": "^28.1.6",
@@ -90,6 +102,10 @@
   "peerDependencies": {
     "react": ">= 17",
     "react-dom": ">= 17"
+  },
+  "resolutions": {
+    "@types/react": "17.0.2",
+    "@types/react-dom": "17.0.2"
   },
   "repository": {
     "type": "git",
